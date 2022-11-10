@@ -39,9 +39,9 @@ const alphabet = [
 // Have to have this globally so that every function can access it and that it is only created once.
 // Every time after, we just want to edit the properties.
 let morseCodeObj;
+let isFirstSound = true;
 
 function App() {
-  const [isFirstSound, setIsFirstSound] = useState(true);
   const [wpm, setWpm] = useState(5);
   const [morseText, setMorseText] = useState("Cameron Yee");
   const [morseCode, setMorseCode] = useState(
@@ -49,18 +49,6 @@ function App() {
   );
   const [showMorseCode, setShowMorseCode] = useState(false);
   const [showMorseText, setShowMorseText] = useState(false);
-
-  let createNewSoundInstance = () => {
-    // Stop the previous iteration only if in the middle of it. Otherwise, can just create a new player without stopping the previous one.
-    // Basically, only stop if something is playing.
-    if (morseCodeObj.getLength() !== 0) {
-      morseCodeObj.stop();
-    }
-
-    // To access code from an external js script tag, access it from the window.
-    morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
-    morseCodeObj.renderPlayer("player", morseCodeObj);
-  };
 
   let changeWpm = (speed) => {
     setWpm(speed);
@@ -94,12 +82,24 @@ function App() {
     script.src = "https://fkurz.net/ham/jscwlib/src/jscwlib.js";
     script.async = true;
 
+    let createNewSoundInstance = () => {
+      // Stop the previous iteration only if in the middle of it. Otherwise, can just create a new player without stopping the previous one.
+      // Basically, only stop if something is playing.
+      if (morseCodeObj.getLength() !== 0) {
+        morseCodeObj.stop();
+      }
+
+      // To access code from an external js script tag, access it from the window.
+      morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
+      morseCodeObj.renderPlayer("player", morseCodeObj);
+    };
+
     // If first time, create the object. Otherwise, stop the current sound and then create another object.
     if (isFirstSound) {
       morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
       morseCodeObj.renderPlayer("player", morseCodeObj);
 
-      setIsFirstSound(false);
+      isFirstSound = false;
     } else {
       createNewSoundInstance();
     }
