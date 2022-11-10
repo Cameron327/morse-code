@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import SoundButton from "./components/SoundButton.js";
 
+// Node module function that generates a random word.
+const randomWords = require('random-words');
+
 // Have to have this globally so that every function can access it and that it is only created once.
 // Every time after, we just want to edit the properties.
 let morseCodeObj;
@@ -19,6 +22,11 @@ function App() {
     morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
     morseCodeObj.renderPlayer("player", morseCodeObj);
   };
+
+  const generateRandomWord = () => {
+    let ranWord = randomWords();
+    setMorseText(ranWord);
+  }
 
   // Load in the morse code library that plays the sound.
   useEffect(() => {
@@ -46,9 +54,9 @@ function App() {
 
   return (
     <div className="App">
-      <SoundButton />
+      <div onClick={() => generateRandomWord()}><SoundButton /></div>
       <div id="player"></div>
-      <div onClick={() => changeWpm()}>Change</div>
+      <div onClick={() => changeWpm()}>Change to 25 WPM</div>
     </div>
   );
 }
