@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import SoundButton from "./components/SoundButton.js";
+import Button from "./components/Button.js";
+import styles from './styles/App.module.scss';
 
 // Node module function that generates a random word.
 const randomWords = require("random-words");
@@ -12,7 +13,7 @@ let morseCodeObj;
 function App() {
   const [isFirstSound, setIsFirstSound] = useState(true);
   const [wpm, setWpm] = useState(5);
-  const [morseText, setMorseText] = useState("Hello There");
+  const [morseText, setMorseText] = useState("Cameron Yee");
 
   let createNewSoundInstance = () => {
     // Stop the previous iteration only if in the middle of it. Otherwise, can just create a new player without stopping the previous one.
@@ -26,7 +27,11 @@ function App() {
     morseCodeObj.renderPlayer("player", morseCodeObj);
   };
 
-  let changeWpm = () => {
+  let change5Wpm = () => {
+    setWpm(5);
+  };
+
+  let change25Wpm = () => {
     setWpm(25);
   };
 
@@ -58,11 +63,22 @@ function App() {
 
   return (
     <div className="App">
-      <div onClick={() => generateRandomWord()}>
-        <SoundButton />
+      <div className={styles.settings}>
+        <div onClick={() => generateRandomWord()}>
+        <Button text={"Generate Random Word"} />
       </div>
-      <div id="player"></div>
-      <div onClick={() => changeWpm()}>Change to 25 WPM</div>
+      <div onClick={() => change5Wpm()}>
+        <Button text={"5 WPM"} />
+      </div>
+      <div onClick={() => change25Wpm()}>
+        <Button text={"25 WPM"} />
+      </div>
+
+      </div>
+      <div className={styles.player}>
+        <div id="player"></div>
+      </div>
+      
     </div>
   );
 }
