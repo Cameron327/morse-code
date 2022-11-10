@@ -1,8 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import SoundButton from "./components/SoundButton.js";
 
+// Have to have this globally so that every function can access it and that it is only created once.
+// Every time after, we just want to edit the properties.
+let morseCodeObj;
+
 function App() {
+  const [isFirstSound, setIsFirstSound] = useState(true);
+  const [wpm, setWpm] = useState(5);
+  const [morseText, setMorseText] = useState("Hello There");
+
+  let createNewSoundInstance = () => {
+    // Stop the previous iteration.
+    morseCodeObj.stop();
+
+    // To access code from an external js script tag, access it from the window.
+    morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
+    morseCodeObj.renderPlayer("player", morseCodeObj);
+  };
+
   // Load in the morse code library that plays the sound.
   useEffect(() => {
     const script = document.createElement("script");
@@ -10,16 +27,28 @@ function App() {
     script.src = "https://fkurz.net/ham/jscwlib/src/jscwlib.js";
     script.async = true;
 
-    // To access code from an external js script tag, access it from the window.
-    let m = new window.jscw({"wpm": 25});
+    // If first time, create the object. Otherwise, stop the current sound and then create another object.
+    if (isFirstSound) {
+      morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
+      morseCodeObj.renderPlayer("player", morseCodeObj);
 
+      setIsFirstSound(false);
+    } else {
+      createNewSoundInstance();
+    }
+    
     document.body.appendChild(script);
-  }, []);
+  }, [wpm, morseText]);
+
+  let changeWpm = () => {
+    setWpm(25);
+  };
 
   return (
     <div className="App">
       <SoundButton />
       <div id="player"></div>
+      <div onClick={() => changeWpm()}>Change</div>
     </div>
   );
 }
