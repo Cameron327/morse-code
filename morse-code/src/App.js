@@ -75,7 +75,7 @@ function App() {
     setShowMorseText(false);
   };
 
-  // Load in the morse code library that plays the sound.
+  // Load in the morse code library and create an instance.
   useEffect(() => {
     const script = document.createElement("script");
 
