@@ -1,11 +1,19 @@
 .settings {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 // 234px is the width of the player that the library generates.
 .player {
   margin: auto;
   width: 234px;
+}
+
+.text {
+  font-size: 25px;
 }

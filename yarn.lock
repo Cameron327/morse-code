@@ -85,6 +85,11 @@ is-number@^7.0.0:
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
   integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
 
+morse-code-converter@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/morse-code-converter/-/morse-code-converter-1.0.2.tgz#60aaf3d3b0e0fdc64fbce47be5eb0f15b7376dcc"
+  integrity sha512-QF2Yqjbr2tly86cHexW9Vn1YjK5GcxJGCaSLNHUaMmmCcdUuWfJ5b+eiE0xPRd11bAL08igayqrW4OK81Sb3aw==
+
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
