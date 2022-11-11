@@ -67,7 +67,7 @@ function App() {
   const generateRandomLetter = () => {
     console.log(alphabet.length);
     let ranNumIndex = Math.floor(Math.random() * alphabet.length);
-    let letter = alphabet[ranNumIndex]
+    let letter = alphabet[ranNumIndex].toUpperCase();
     setMorseText(letter);
     let morseCode = morseCodeConverter.textToMorse(letter);
     setMorseCode(morseCode);
