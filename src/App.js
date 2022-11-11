@@ -42,7 +42,7 @@ let morseCodeObj;
 let isFirstSound = true;
 
 function App() {
-  const [wpm, setWpm] = useState(5);
+  const [wpm, setWpm] = useState(10);
   const [morseText, setMorseText] = useState("Cameron Yee");
   const [morseCode, setMorseCode] = useState(
     "-.-. .- -- . .-. --- -.   -.-- . ."
@@ -110,6 +110,7 @@ function App() {
 
   return (
     <div className="App">
+      <p>{`${wpm} WPM`}</p>
       <div className={styles.settings}>
         {commonWpm.map((speed, key) => {
           return (
