@@ -105,7 +105,7 @@ function App() {
       }
 
       document.body.appendChild(script);
-    }, 200);
+    }, 100);
   }, [wpm, morseText]);
 
   return (
