@@ -5,7 +5,7 @@ import styles from "../styles/Button.module.scss";
 export default function Button(props) {
   return (
     <div className={styles.buttonContainer}>
-      <div className={styles.button}>
+      <div className={`${styles.button} ${props.speed === props.wpm ? styles.active : ""}`}>
         <p className={styles.buttonText}>{props.text}</p>
       </div>
     </div>

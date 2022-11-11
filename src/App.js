@@ -50,7 +50,7 @@ function App() {
   const [showMorseCode, setShowMorseCode] = useState(false);
   const [showMorseText, setShowMorseText] = useState(false);
 
-  let changeWpm = (speed) => {
+  let changeWpm = (speed, key) => {
     setWpm(speed);
   };
 
@@ -110,16 +110,15 @@ function App() {
 
   return (
     <div className="App">
-      <p>{`${wpm} WPM`}</p>
       <div className={styles.settings}>
         {commonWpm.map((speed, key) => {
           return (
             <div
               key={key}
-              onClick={() => changeWpm(speed)}
-              className={styles.clickable}
+              onClick={() => changeWpm(speed, key)}
+              className={`${styles.clickable}`}
             >
-              <Button key={key} text={`${speed} WPM`} />
+              <Button key={key} text={`${speed} WPM`} speed={speed} wpm={wpm} />
             </div>
           );
         })}
@@ -129,10 +128,10 @@ function App() {
           className={styles.clickable}
           onClick={() => generateRandomLetter()}
         >
-          <Button text={"Random Letter"} />
+          <Button text={"Random Letter"} speed={0} wpm={wpm}/>
         </div>
         <div className={styles.clickable} onClick={() => generateRandomWord()}>
-          <Button text={"Random Word"} />
+          <Button text={"Random Word"} speed={0} wpm={wpm}/>
         </div>
       </div>
 
