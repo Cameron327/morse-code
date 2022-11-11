@@ -98,7 +98,6 @@ function App() {
 
       // If first time, create the object. Otherwise, stop the current sound and then create another object.
       if (isFirstSound) {
-        console.log("window: ", window);
         morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
         morseCodeObj.renderPlayer("player", morseCodeObj);
         isFirstSound = false;
