@@ -65,7 +65,6 @@ function App() {
   };
 
   const generateRandomLetter = () => {
-    console.log(alphabet.length);
     let ranNumIndex = Math.floor(Math.random() * alphabet.length);
     let letter = alphabet[ranNumIndex].toUpperCase();
     setMorseText(letter);
@@ -112,15 +111,6 @@ function App() {
   return (
     <div className="App">
       <div className={styles.settings}>
-        <div className={styles.clickable} onClick={() => generateRandomWord()}>
-          <Button text={"Random Word"} />
-        </div>
-        <div
-          className={styles.clickable}
-          onClick={() => generateRandomLetter()}
-        >
-          <Button text={"Random Letter"} />
-        </div>
         {commonWpm.map((speed, key) => {
           return (
             <div
@@ -133,6 +123,18 @@ function App() {
           );
         })}
       </div>
+      <div className={styles.generateButtons}>
+        <div
+          className={styles.clickable}
+          onClick={() => generateRandomLetter()}
+        >
+          <Button text={"Random Letter"} />
+        </div>
+        <div className={styles.clickable} onClick={() => generateRandomWord()}>
+          <Button text={"Random Word"} />
+        </div>
+      </div>
+
       <div className={styles.player}>
         <div id="player"></div>
       </div>
