@@ -83,30 +83,31 @@ function App() {
     script.src = "https://fkurz.net/ham/jscwlib/src/jscwlib.js";
     script.async = true;
 
-    let createNewSoundInstance = () => {
-      // Stop the previous iteration only if in the middle of it. Otherwise, can just create a new player without stopping the previous one.
-      // Basically, only stop if something is playing.
-      if (morseCodeObj.getLength() !== 0) {
-        morseCodeObj.stop();
+    setTimeout(() => {
+      let createNewSoundInstance = () => {
+        // Stop the previous iteration only if in the middle of it. Otherwise, can just create a new player without stopping the previous one.
+        // Basically, only stop if something is playing.
+        if (morseCodeObj.getLength() !== 0) {
+          morseCodeObj.stop();
+        }
+
+        // To access code from an external js script tag, access it from the window.
+        morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
+        morseCodeObj.renderPlayer("player", morseCodeObj);
+      };
+
+      // If first time, create the object. Otherwise, stop the current sound and then create another object.
+      if (isFirstSound) {
+        console.log("window: ", window);
+        morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
+        morseCodeObj.renderPlayer("player", morseCodeObj);
+        isFirstSound = false;
+      } else {
+        createNewSoundInstance();
       }
 
-      // To access code from an external js script tag, access it from the window.
-      morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
-      morseCodeObj.renderPlayer("player", morseCodeObj);
-    };
-
-    // If first time, create the object. Otherwise, stop the current sound and then create another object.
-    if (isFirstSound) {
-      console.log("window: ", window);
-      morseCodeObj = new window.jscw({ wpm: wpm, text: morseText });
-      morseCodeObj.renderPlayer("player", morseCodeObj);
-
-      isFirstSound = false;
-    } else {
-      createNewSoundInstance();
-    }
-
-    document.body.appendChild(script);
+      document.body.appendChild(script);
+    }, 200);
   }, [wpm, morseText]);
 
   return (
@@ -115,12 +116,19 @@ function App() {
         <div className={styles.clickable} onClick={() => generateRandomWord()}>
           <Button text={"Random Word"} />
         </div>
-        <div className={styles.clickable} onClick={() => generateRandomLetter()}>
+        <div
+          className={styles.clickable}
+          onClick={() => generateRandomLetter()}
+        >
           <Button text={"Random Letter"} />
         </div>
         {commonWpm.map((speed, key) => {
           return (
-            <div key={key} onClick={() => changeWpm(speed)} className={styles.clickable}>
+            <div
+              key={key}
+              onClick={() => changeWpm(speed)}
+              className={styles.clickable}
+            >
               <Button key={key} text={`${speed} WPM`} />
             </div>
           );
