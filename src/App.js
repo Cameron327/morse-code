@@ -86,7 +86,7 @@ function App() {
       let createNewSoundInstance = () => {
         // Stop the previous iteration only if in the middle of it. Otherwise, can just create a new player without stopping the previous one.
         // Basically, only stop if something is playing.
-        if (morseCodeObj.getLength() !== 0) {
+        if (morseCodeObj.getRemaining() !== 0) {
           morseCodeObj.stop();
         }
 
